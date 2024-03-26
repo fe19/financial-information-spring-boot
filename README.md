@@ -7,6 +7,12 @@ Get financial information (e.g., gold price) from a web API. Persistate them in 
 - Java 17
 - Gradle
 - Spring Boot
-- Spring Web MVC
+- Spring Web
+- Spring Security
 - REST
 - SQL
+
+## Principles
+- Test Driven Development (TDD)
+- Model View Controller (MVC)
+- Red, Green, Refactor loop

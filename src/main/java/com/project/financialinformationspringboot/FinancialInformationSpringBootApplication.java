@@ -9,8 +9,6 @@ public class FinancialInformationSpringBootApplication {
     public static void main(String[] args) {
         SpringApplication.run(FinancialInformationSpringBootApplication.class, args);
         System.out.println("TEST");
-
-        // TODO OAuth
     }
 
 }

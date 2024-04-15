@@ -1,5 +1,7 @@
 package com.project.financialinformationspringboot;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,5 +23,9 @@ public class CoinBaseTest {
                 .getForEntity("/BTC-USD/buy", String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        Double price = documentContext.read("$.price");
+        //assertThat(price).isGreaterThan(10000.00);
     }
 }

@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("https://api.coinbase.com/v2/prices/BTC-USD/buy")
+@RequestMapping("https://api.coinbase.com/v2/prices")
 public class RestController {
 
-    @GetMapping("/request")
+    @GetMapping("/BTC-USD/buy")
     private ResponseEntity<String> findById() {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("100000.00");
     }
 
 }

@@ -44,9 +44,13 @@ public class CoinBaseTest {
         DocumentContext documentContext = JsonPath.parse(response.getBody());
         System.out.println("OUTPUT = " + documentContext.jsonString());
         Number id = documentContext.read("$.id");
-        Double price = documentContext.read("$.price");
+        String name = documentContext.read("$.name");
+        Double amount = documentContext.read("$.amount");
+        String currency = documentContext.read("$.currency");
 
         assertThat(id).isEqualTo(1);
-        assertThat(price).isEqualTo(100000.00);
+        assertThat(name).isEqualTo("BTC");
+        assertThat(amount).isEqualTo(100000.00);
+        assertThat(currency).isEqualTo("USD");
     }
 }

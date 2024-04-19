@@ -28,8 +28,25 @@ public class CoinBaseTest {
         String amount = documentContext.read("$.data.amount");
         String base = documentContext.read("$.data.base");
         String currency = documentContext.read("$.data.currency");
+
         assertThat(amount).isGreaterThan("1.00");
         assertThat(base).isEqualTo("BTC");
         assertThat(currency).isEqualTo("USD");
+    }
+
+    @Test
+    void shouldReturnATestBTCPrice() {
+        ResponseEntity<String> response = restTemplate
+                .getForEntity("/test/api.coinbase.com/v2/prices/BTC-USD/buy", String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        System.out.println("OUTPUT = " + documentContext.jsonString());
+        Number id = documentContext.read("$.id");
+        Double price = documentContext.read("$.price");
+
+        assertThat(id).isEqualTo(1);
+        assertThat(price).isEqualTo(100000.00);
     }
 }

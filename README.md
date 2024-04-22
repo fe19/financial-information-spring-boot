@@ -11,6 +11,13 @@ Run all tests:
 
     ./gradlew test
 
+Start database:
+
+    docker compose -f ./src/main/docker/docker-compose.yml up
+
+Connect to database:
+
+    jdbc:postgresql://localhost:5432/postgres
 
 ## Goal
 Get financial information (e.g., gold price) from a web API. Persistate them in a relational database and visualize the results.
@@ -25,6 +32,8 @@ Get financial information (e.g., gold price) from a web API. Persistate them in 
 - REST
 - SQL
 - H2 in-memory database
+- Docker
+- Postgres
 
 ## Principles
 - Test Driven Development (TDD)

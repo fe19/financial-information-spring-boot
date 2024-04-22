@@ -1,7 +1,7 @@
 package com.project.financialinformationspringboot.web;
 
+import com.project.financialinformationspringboot.data.Coin;
 import com.project.financialinformationspringboot.data.CoinRepository;
-import com.project.financialinformationspringboot.product.Coin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +27,7 @@ public class CoinController {
     private ResponseEntity<Coin> getBtc() {
         Optional<Coin> coinOptional =
                 coinRepository.findById(1L);
-        if (coinOptional.isPresent()){
-            return ResponseEntity.ok(coinOptional.get());
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+        return coinOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 

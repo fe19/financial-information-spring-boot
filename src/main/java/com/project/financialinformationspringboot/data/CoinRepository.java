@@ -1,7 +1,6 @@
 package com.project.financialinformationspringboot.data;
 
-import com.project.financialinformationspringboot.product.Coin;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CoinRepository extends CrudRepository<Coin, Long> {
+public interface CoinRepository extends JpaRepository<Coin, Long> {
 }

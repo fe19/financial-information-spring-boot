@@ -22,16 +22,17 @@ public class MainSpringBootApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void runAfterStartup() {
         System.out.println("SPRING BOOT APPLICATION STARTED");
-        createCoin();
+        Coin btc = createBtcCoin();
+        this.repository.save(btc);
     }
 
-    private void createCoin() {
+    private Coin createBtcCoin() {
         Coin btc = new Coin();
         btc.setId(1L);
         btc.setName("BTC");
         btc.setCurrency("USD");
         btc.setAmount(100000.00);
-        this.repository.save(btc);
         System.out.println("Created a new coin: " + btc);
+        return btc;
     }
 }

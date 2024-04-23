@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class MainSpringBootApplication {
 
@@ -32,6 +34,7 @@ public class MainSpringBootApplication {
         btc.setName("BTC");
         btc.setCurrency("USD");
         btc.setAmount(100000.00);
+        btc.setDate(new Date());
         System.out.println("Created a new coin: " + btc);
         return btc;
     }

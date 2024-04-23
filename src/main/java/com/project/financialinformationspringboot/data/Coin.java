@@ -2,6 +2,8 @@ package com.project.financialinformationspringboot.data;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table
 public class Coin {
@@ -17,6 +19,9 @@ public class Coin {
 
     @Column(name = "CURRENCY", nullable = false)
     private String currency;
+
+    @Column(name = "DATE", nullable = false)
+    private Date date;
 
     public void setId(Long id) {
         this.id = id;
@@ -50,7 +55,15 @@ public class Coin {
         this.currency = currency;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String toString() {
-        return "ID = " + id + " NAME = " + name + " AMOUNT = " + amount + " CURRENCY = " + currency ;
+        return "ID = " + id + " NAME = " + name + " AMOUNT = " + amount + " CURRENCY = " + currency + " DATE = " + date;
     }
 }

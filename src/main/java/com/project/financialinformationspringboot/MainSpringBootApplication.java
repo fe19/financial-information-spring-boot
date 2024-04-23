@@ -17,6 +17,8 @@ import java.util.Date;
 @SpringBootApplication
 public class MainSpringBootApplication {
 
+    private static final String BTC_GET_URL = "https://api.coinbase.com/v2/prices/BTC-USD/buy";
+
     @Autowired
     private CoinRepository repository;
 
@@ -27,30 +29,19 @@ public class MainSpringBootApplication {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void runAfterStartup() {
+    public void runAfterStartup() throws InterruptedException {
         System.out.println("SPRING BOOT APPLICATION STARTED");
 
-        Coin testBtc = createTestBtc();
-        this.repository.save(testBtc);
-
-        Coin btc = createBtc();
-        this.repository.save(btc);
+        for (int i = 0; i < 100; i++) {
+            Coin btc = createBtc(i);
+            this.repository.save(btc);
+            Thread.sleep(60000);
+        }
     }
 
-    private Coin createTestBtc() {
-        Coin btc = new Coin();
-        btc.setId(1L);
-        btc.setName("BTC");
-        btc.setCurrency("USD");
-        btc.setAmount(100000.00);
-        btc.setDate(new Date());
-        System.out.println("Created a new coin: " + btc);
-        return btc;
-    }
-
-    private Coin createBtc() {
+    private Coin createBtc(long id) {
         ResponseEntity<String> response = restTemplate
-                .getForEntity("https://api.coinbase.com/v2/prices/BTC-USD/buy", String.class);
+                .getForEntity(BTC_GET_URL, String.class);
 
         DocumentContext documentContext = JsonPath.parse(response.getBody());
         String amount = documentContext.read("$.data.amount");
@@ -58,10 +49,21 @@ public class MainSpringBootApplication {
         String currency = documentContext.read("$.data.currency");
 
         Coin btc = new Coin();
-        btc.setId(2L);
+        btc.setId(id);
         btc.setName(base);
         btc.setCurrency(currency);
         btc.setAmount(Double.parseDouble(amount));
+        btc.setDate(new Date());
+        System.out.println("Created a new coin: " + btc);
+        return btc;
+    }
+
+    private Coin createTestBtc(long id) {
+        Coin btc = new Coin();
+        btc.setId(id);
+        btc.setName("BTC");
+        btc.setCurrency("USD");
+        btc.setAmount(100000.00);
         btc.setDate(new Date());
         System.out.println("Created a new coin: " + btc);
         return btc;

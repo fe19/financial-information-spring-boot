@@ -19,6 +19,8 @@ import java.util.List;
 public class MainSpringBootApplication {
 
     private static final String BTC_GET_URL = "https://api.coinbase.com/v2/prices/BTC-USD/buy";
+    private static final int POLLING_TIME_IN_S = 10;
+    private static final int NBR_REQUESTS = 100;
 
     @Autowired
     private CoinRepository repository;
@@ -35,10 +37,10 @@ public class MainSpringBootApplication {
 
         long startId = getMaxId() + 1;
 
-        for (long i = 0; i < 100; i++) {
+        for (long i = 0; i < NBR_REQUESTS; i++) {
             Coin btc = createBtc(i + startId);
             this.repository.save(btc);
-            Thread.sleep(1000);
+            Thread.sleep(1000 * POLLING_TIME_IN_S);
         }
     }
 

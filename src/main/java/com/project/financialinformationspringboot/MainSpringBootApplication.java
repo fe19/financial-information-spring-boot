@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class MainSpringBootApplication {
@@ -32,10 +33,12 @@ public class MainSpringBootApplication {
     public void runAfterStartup() throws InterruptedException {
         System.out.println("SPRING BOOT APPLICATION STARTED");
 
-        for (int i = 0; i < 100; i++) {
-            Coin btc = createBtc(i);
+        long startId = getMaxId() + 1;
+
+        for (long i = 0; i < 100; i++) {
+            Coin btc = createBtc(i + startId);
             this.repository.save(btc);
-            Thread.sleep(60000);
+            Thread.sleep(1000);
         }
     }
 
@@ -56,6 +59,18 @@ public class MainSpringBootApplication {
         btc.setDate(new Date());
         System.out.println("Created a new coin: " + btc);
         return btc;
+    }
+
+    private long getMaxId() {
+        List<Coin> coins = this.repository.findAll();
+        long maxId = 0;
+        for (Coin coin : coins) {
+            long currentId = coin.getId();
+            if (currentId > maxId) {
+                maxId = currentId;
+            }
+        }
+        return maxId;
     }
 
     private Coin createTestBtc(long id) {

@@ -45,12 +45,12 @@ public class CoinRecordBaseTest {
         System.out.println("OUTPUT = " + documentContext.jsonString());
         Number id = documentContext.read("$.id");
         String name = documentContext.read("$.name");
-        Double amount = documentContext.read("$.amount");
+        Double price = documentContext.read("$.price");
         String currency = documentContext.read("$.currency");
 
         assertThat(id).isEqualTo(1);
         assertThat(name).isEqualTo("BTC");
-        assertThat(amount).isEqualTo(100000.00);
+        assertThat(price).isEqualTo(100000.00);
         assertThat(currency).isEqualTo("USD");
     }
 }

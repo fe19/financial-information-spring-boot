@@ -49,7 +49,7 @@ public class MainSpringBootApplication {
                 .getForEntity(BTC_GET_URL, String.class);
 
         DocumentContext documentContext = JsonPath.parse(response.getBody());
-        String amount = documentContext.read("$.data.amount");
+        String price = documentContext.read("$.data.amount");
         String base = documentContext.read("$.data.base");
         String currency = documentContext.read("$.data.currency");
 
@@ -57,7 +57,7 @@ public class MainSpringBootApplication {
         btc.setId(id);
         btc.setName(base);
         btc.setCurrency(currency);
-        btc.setAmount(Double.parseDouble(amount));
+        btc.setPrice(Double.parseDouble(price));
         btc.setDate(new Date());
         System.out.println("Created a new coin: " + btc);
         return btc;
@@ -80,7 +80,7 @@ public class MainSpringBootApplication {
         btc.setId(id);
         btc.setName("BTC");
         btc.setCurrency("USD");
-        btc.setAmount(100000.00);
+        btc.setPrice(100000.00);
         btc.setDate(new Date());
         System.out.println("Created a new coin: " + btc);
         return btc;

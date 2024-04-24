@@ -14,8 +14,8 @@ public class Coin {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "AMOUNT", nullable = false)
-    private double amount;
+    @Column(name = "PRICE", nullable = false)
+    private double price;
 
     @Column(name = "CURRENCY", nullable = false)
     private String currency;
@@ -39,12 +39,12 @@ public class Coin {
         this.name = name;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getPrice() {
+        return price;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getCurrency() {
@@ -64,6 +64,6 @@ public class Coin {
     }
 
     public String toString() {
-        return "ID = " + id + " NAME = " + name + " AMOUNT = " + amount + " CURRENCY = " + currency + " DATE = " + date;
+        return "ID = " + id + " NAME = " + name + " PRICE = " + price + " CURRENCY = " + currency + " DATE = " + date;
     }
 }

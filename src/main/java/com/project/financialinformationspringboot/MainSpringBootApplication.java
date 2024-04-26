@@ -4,6 +4,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.project.financialinformationspringboot.data.Coin;
 import com.project.financialinformationspringboot.data.CoinRepository;
+import com.project.financialinformationspringboot.data.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,6 +36,8 @@ public class MainSpringBootApplication {
     public void runAfterStartup() throws InterruptedException {
         System.out.println("SPRING BOOT APPLICATION STARTED");
 
+        System.out.println("MAX VALUE IS " + Util.getMaxPrice());
+
         long startId = getMaxId() + 1;
 
         for (long i = 0; i < NBR_REQUESTS; i++) {
@@ -42,6 +45,8 @@ public class MainSpringBootApplication {
             this.repository.save(btc);
             Thread.sleep(1000 * POLLING_TIME_IN_S);
         }
+
+        System.out.println("INSERTED NEW VALUES");
     }
 
     private Coin createBtc(long id) {

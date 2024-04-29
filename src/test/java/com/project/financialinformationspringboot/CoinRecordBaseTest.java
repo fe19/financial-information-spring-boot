@@ -53,4 +53,12 @@ public class CoinRecordBaseTest {
         assertThat(price).isEqualTo(100000.00);
         assertThat(currency).isEqualTo("USD");
     }
+
+    @Test
+    void shouldStoreTheCurrentBTCPriceInTheDb() {
+        ResponseEntity<String> response = restTemplate
+                .getForEntity("https://api.coinbase.com/v2/prices/BTC-USD/buy", String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }

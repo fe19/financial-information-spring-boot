@@ -17,22 +17,7 @@ public class CoinRecordBaseTest {
     @Autowired
     TestRestTemplate restTemplate;
 
-    @Test
-    void shouldReturnTheCurrentBTCPrice() {
-        ResponseEntity<String> response = restTemplate
-                .getForEntity("https://api.coinbase.com/v2/prices/BTC-USD/buy", String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        DocumentContext documentContext = JsonPath.parse(response.getBody());
-        String amount = documentContext.read("$.data.amount");
-        String base = documentContext.read("$.data.base");
-        String currency = documentContext.read("$.data.currency");
-
-        assertThat(amount).isGreaterThan("1.00");
-        assertThat(base).isEqualTo("BTC");
-        assertThat(currency).isEqualTo("USD");
-    }
+    private static final String URL_BTC = "https://api.coinbase.com/v2/prices/BTC-USD/buy";
 
     @Test
     void shouldReturnATestBTCPrice() {
@@ -55,10 +40,28 @@ public class CoinRecordBaseTest {
     }
 
     @Test
-    void shouldStoreTheCurrentBTCPriceInTheDb() {
+    void shouldReturnTheCurrentBTCPrice() {
         ResponseEntity<String> response = restTemplate
-                .getForEntity("https://api.coinbase.com/v2/prices/BTC-USD/buy", String.class);
+                .getForEntity(URL_BTC, String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        String amount = documentContext.read("$.data.amount");
+        String base = documentContext.read("$.data.base");
+        String currency = documentContext.read("$.data.currency");
+
+        assertThat(amount).isGreaterThan("1.00");
+        assertThat(base).isEqualTo("BTC");
+        assertThat(currency).isEqualTo("USD");
+    }
+
+    @Test
+    void shouldStoreTheCurrentBTCPriceInTheDb() {
+        ResponseEntity<String> response = restTemplate
+                .getForEntity(URL_BTC, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        
     }
 }
